@@ -44,7 +44,7 @@ router.delete('/:device_id',(req,res)=>
 });
 //장치 삭제
 
-router.get('/device/group',(req,res)=>
+router.get('/group',(req,res)=>
 {
     Author.find({group_id:req.body.group},function(err,data)
     {
