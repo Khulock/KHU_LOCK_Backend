@@ -43,6 +43,33 @@ router.post('/', function(req, res, next) {
       });
     });
 });
+//사용자 생성
+
+router.get('/:user_id',(req,res)=>
+{
+    User.find({id:req.params.user_id},function(err,users)
+    {
+        res.json(users);
+    });
+});
+//사용자 조회
+
+router.delete('/:user_id',(req,res)=>
+{
+    User.count({id:req.params.user_id},function(err,count)
+    {
+        if(count!=0)
+        {
+            User.findOneAndDelete({id:req.params.user_id});
+            res.send(req.params.user_id+" User is Deleted");
+        }
+        else  
+        {
+            res.send("User ID Not Exists");
+        }
+    });
+});
+//사용자 삭제
 
 router.post('/auth', function(req, res, next) {
   var historyModel = new History();
@@ -104,6 +131,7 @@ router.post('/auth', function(req, res, next) {
     })
   }); 
 });
+//권한 부여
 
 
 router.post('/out', function(req, res, next) {
@@ -134,7 +162,7 @@ router.post('/out', function(req, res, next) {
       });
     });
 });
-
+//퇴실 기능
 
 router.get('/history/:user_id', function(req, res, next) {
   var user_id = req.params.user_id;
@@ -168,7 +196,7 @@ router.get('/history/:user_id', function(req, res, next) {
 
   })
 });
-
+//기록 조회
 
     
 

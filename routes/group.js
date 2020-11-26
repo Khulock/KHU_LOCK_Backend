@@ -32,7 +32,7 @@ router.post('/', function(req, res, next) {
 
 
 });
-
+//그룹 추가
 
 router.get('/', function(req, res, next) {
     
@@ -40,7 +40,25 @@ router.get('/', function(req, res, next) {
         if(err) return res.status(500).json({error: err});
         res.json(user)
     });
-})
+});/*수정 예정*/
+// 전체 그룹 조회
+
+router.delete('/:group_id',(req,res)=>
+{
+    Group.count({group_id:req.params.group_id},function(err,count)
+    {
+        if(count!=0)
+        {
+            Group.findOneAndDelete({group_id:req.params.group_id});
+            res.send(req.params.group_id+" Group is Deleted");
+        }
+        else  
+        {
+            res.send("Group doesn't Exist");
+        }
+    });
+});
+//그룹 삭제
 
 router.get('/mygroup', function(req, res, next) {
   var token = req.headers['authorization'];
@@ -73,7 +91,30 @@ router.get('/mygroup', function(req, res, next) {
 
 
 })
+//그룹 조회
 
+router.put('/user/:user_id',(req,res)=>
+{
+    User.findOne({id:req.params.user_id},function(err,data)
+    {
+        if(data.group_id===null)
+        {
+        User.findOneAndUpdate({id: req.params.user_id}, {$set: {group_id: req.body.group}},function(err,result)
+        {
+            if(err) res.send(err);
+            else res.send("User is Added in Group");
+        });
+    }
+    else{
+        User.findOneAndUpdate({id: req.params.user_id}, {$set: {group_id: null}},function(err,result)
+        {
+            if(err) res.send(err);
+            else res.send("User is Deleted by Group");
+        });
+    }    
+});
+}); 
+//그룹에 사용자 추가 , 삭제
 
 
 
