@@ -7,8 +7,7 @@ var authorSchema = new Schema({
     device_id: String,
     group_id: Number
 }, {
-    versionKey: false,
-    collection: 'author'
+    versionKey: false
 });
 
 

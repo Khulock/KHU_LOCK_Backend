@@ -84,6 +84,7 @@ router.post('/auth', function(req, res, next) {
 
   User.findOne({'name': user_name}, function(err, user) {
     if (err) return res.status(500).json({error: err});
+    console.log(user);
     
     user_id = user.id;
     group_id = user.group_id;
@@ -126,7 +127,7 @@ router.post('/auth', function(req, res, next) {
         User.update({id: user_id}, {author_status: true}, function(err, user) {
           if (err) return res.status(500).json({errro: err});
         });
-        mqttClient.sendMessage({auth: "Success"});
+        mqttClient.sendMessage("Success");
       }
     })
   }); 

@@ -11,8 +11,7 @@ var groupSchema = new Schema({
     group_id: Number,
     group_name: String
 }, {
-    versionKey: false,
-    collection:'group'
+    versionKey: false
 });
 
 groupSchema.plugin(autoIncrement.plugin, {

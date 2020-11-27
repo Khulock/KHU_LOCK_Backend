@@ -15,8 +15,7 @@ var deviceSchema = new Schema({
     start_setting: Number,
     end_setting: Number
 }, {
-    versionKey: false,
-    collection:'device'
+    versionKey: false
 });
 
 deviceSchema.plugin(autoIncrement.plugin, {
