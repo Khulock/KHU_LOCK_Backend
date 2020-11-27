@@ -15,7 +15,8 @@ var userSchema = new Schema({
     name: String,
     author_status: Boolean
 },{
-    versionKey: false
+    versionKey: false,
+    collection:'user'
 });
 
 

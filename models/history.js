@@ -16,7 +16,8 @@ var historySchema = new Schema({
     access_time: {type: Date, default: dateKorea},
     check_enterout: Number
 }, {
-    versionKey: false
+    versionKey: false,
+    collection:'history'
 });
 
 historySchema.plugin(autoIncrement.plugin, {

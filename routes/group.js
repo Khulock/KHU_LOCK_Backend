@@ -34,15 +34,6 @@ router.post('/', function(req, res, next) {
 });
 //그룹 추가
 
-router.get('/', function(req, res, next) {
-    
-    Group.find({}, function(err, user) {
-        if(err) return res.status(500).json({error: err});
-        res.json(user)
-    });
-});/*수정 예정*/
-// 전체 그룹 조회
-
 router.delete('/:group_id',(req,res)=>
 {
     Group.count({group_id:req.params.group_id},function(err,count)
