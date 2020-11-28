@@ -7,6 +7,7 @@ var History = require('../models/history');
 var Device = require('../models/device.js')
 var Author = require('../models/author');
 const author = require('../models/author');
+const device = require('../models/device.js');
 
 
 router.post('/', function(req, res, next) {
@@ -77,5 +78,21 @@ router.post('/author', function(req, res, next) {
     });
 });
 //권한 부여
+
+router.put('/info/:device_id',(req,res)=>
+{
+    var deviceSetting=new Device();
+    deviceSetting=
+    {
+        device_name=req.body.device_name,
+        device_type=req.body.device_type,
+        start_setting=req.body.start_setting,
+        end_setting=req.body.end_setting
+    }
+    Device.findOneAndUpdate({device_id:req.body.device_id},{$set:deviceSetting},function(err,data)
+    {
+        res.send("Device info is added");
+    });
+});
 
 module.exports = router;
