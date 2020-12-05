@@ -77,7 +77,7 @@ router.post('/auth', function(req, res, next) {
 
   var user_name = req.body.user_name;
   var door_mac = req.body.door_mac;
-  console.log(body);
+  console.log(req.body);
 
   var user_id;
   var group_id;
