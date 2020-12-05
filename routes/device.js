@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+const mqttHandler = requrie('../mqtt_handler');
+
 var User = require('../models/user.js');
 var Group = require('../models/group.js');
 var History = require('../models/history');
@@ -9,6 +11,8 @@ var Author = require('../models/author');
 const author = require('../models/author');
 const device = require('../models/device.js');
 
+var mqttClient = new mqttHandler();
+mqttClient.connect();
 
 router.post('/', function(req, res, next) {
     var deviceModel = new Device();
@@ -93,6 +97,18 @@ router.put('/info/:device_id',(req,res)=>
     {
         res.send("Device info is added");
     });
+});
+
+router.get('/run/:device_id',(req,res)=>
+{
+    mqttClient.publish(req.params.device_id,'khulock run motor', qos=2);
+    res.send("Send message to "+req.params.device_id);
+});
+
+router.get('/stop/:device_id',(req,res)=>
+{
+    mqttClient.publish(req.params.device_id,'khulock stop motor', qos=2);
+    res.send("Send message to "+req.params.device_id);
 });
 
 module.exports = router;
