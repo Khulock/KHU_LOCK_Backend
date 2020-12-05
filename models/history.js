@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var autoIncrement = require('mongoose-auto-increment');
 var moment = require('moment');
 
-const dateKorea = moment();
+const dateKorea = moment().valueOf();
 
 var Schema = mongoose.Schema;
 
