@@ -186,6 +186,7 @@ router.get('/history/:user_id', function(req, res, next) {
 
       if (user.group_id == user2.group_id) {
         History.find({user_id: user_id}, function(err, history) {
+          history.access_time;
           if(err) return res.status(500).json({error: err});
           res.json({history});
         });

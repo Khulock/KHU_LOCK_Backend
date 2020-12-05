@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 var autoIncrement = require('mongoose-auto-increment');
-var moment = require('moment-timezone');
+var moment = require('moment');
 
-const dateKorea = moment.tz(Date.now(), 'Asia/Seoul');
+const dateKorea = moment();
 
 var Schema = mongoose.Schema;
 
