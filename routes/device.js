@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const mqttHandler = requrie('../mqtt_handler');
+const mqttHandler = require('../mqtt_handler');
 
 var User = require('../models/user.js');
 var Group = require('../models/group.js');
