@@ -17,7 +17,8 @@ mqttClient.connect();
 router.post('/', function(req, res, next) {
     var deviceModel = new Device();
 
-    deviceModel.device_id = 'b82737eed6';
+
+    deviceModel.device_id = req.body.device_id;
     deviceModel.status = 1;
     deviceModel.device_time = Date.now();
     deviceModel.start_setting = 1;
