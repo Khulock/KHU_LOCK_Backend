@@ -104,4 +104,12 @@ router.get('/stop/:device_id',(req,res)=>
     res.send("Send message to "+req.params.device_id);
 });
 
+router.get('/:device_id',(req,res)=>
+{
+    Device.findOne({device_id:req.params.device_id},function(err,data)
+    {
+        res.json(data);
+    })
+});
+
 module.exports = router;
