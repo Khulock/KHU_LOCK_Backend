@@ -50,14 +50,6 @@ router.delete('/:device_id',(req,res)=>
 });
 //장치 삭제
 
-router.get('/group',(req,res)=>
-{
-    Author.find({group_id:req.body.group},function(err,data)
-    {
-        res.json(data);
-    });
-});
-//장치 조회(그룹 전체)
 
 
 router.post('/author', function(req, res, next) {
