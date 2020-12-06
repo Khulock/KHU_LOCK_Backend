@@ -127,6 +127,8 @@ router.post('/auth', function(req, res, next) {
           if (err) return res.status(500).json({errro: err});
         });
         mqttClient.sendMessage("/auth", "Success");
+        
+
       }
     })
   }); 

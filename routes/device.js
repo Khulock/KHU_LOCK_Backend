@@ -10,6 +10,7 @@ var Device = require('../models/device.js')
 var Author = require('../models/author');
 const author = require('../models/author');
 const device = require('../models/device.js');
+const { monthsShort } = require('moment-timezone');
 
 var mqttClient = new mqttHandler();
 mqttClient.connect();
@@ -88,9 +89,24 @@ router.post('/info/:device_id',(req,res)=>
     res.send("Device info is added");
 });
 
-router.get('/run/:device_id/:device_type',(req,res)=>
+router.post('/run/:device_id/:device_type',(req,res)=>
 {   
-    mqttClient.sendMessage(req.params.device_id, 'khulockrun '+req.params.device_type)
+    Device.findOne({device_id:req.params.device_id, device_type:req.params.device_type}, function(err, device)
+    {
+        var setting = req.body.setting;
+        if (!setting) {
+            setting = device.start_setting
+        };
+        var msg = {
+            type: req.params.device_type,
+            setting: setting
+
+        };
+        var data = JSON.stringify(msg);
+        mqttClient.sendMessage(req.params.device_id, data);
+        
+        console.log(setting);
+    });
     res.send("Send message to "+req.params.device_id);
 });
 
