@@ -90,13 +90,13 @@ router.post('/info/:device_id',(req,res)=>
 
 router.get('/run/:device_id/:device_type',(req,res)=>
 {   
-        mqttClient.publish(req.params.device_id,'khulockrun '+req.params.device_type, qos=2);
-        res.send("Send message to "+req.params.device_id);
+    mqttClient.sendMessage(req.params.device_id, 'khulockrun '+req.params.device_type)
+    res.send("Send message to "+req.params.device_id);
 });
 
 router.get('/stop/:device_id/:device_type',(req,res)=>
 {
-    mqttClient.publish(req.params.device_id,'khulockstop '+req.params.device_type, qos=2);
+    mqttClient.sendMessage(req.params.device_id, 'khulockstop '+req.params.device_type)
     res.send("Send message to "+req.params.device_id);
 });
 

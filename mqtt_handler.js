@@ -35,10 +35,10 @@ class MqttHandler {
   }
 
   // Sends a mqtt message to topic: mytopic
-  sendMessage(message) {
-    this.mqttClient.publish('/auth', message);
+  sendMessage(topic, message) {
+    this.mqttClient.publish(topic, message, {qos: 2});
   };
-  
+
 
 }
 

@@ -126,7 +126,7 @@ router.post('/auth', function(req, res, next) {
         User.update({id: user_id}, {author_status: true}, function(err, user) {
           if (err) return res.status(500).json({errro: err});
         });
-        mqttClient.sendMessage("Success");
+        mqttClient.sendMessage("/auth", "Success");
       }
     })
   }); 
