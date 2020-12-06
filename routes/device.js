@@ -1,18 +1,24 @@
 var express = require('express');
 var router = express.Router();
 
+const mqttHandler = require('../mqtt_handler');
+
 var User = require('../models/user.js');
 var Group = require('../models/group.js');
 var History = require('../models/history');
 var Device = require('../models/device.js')
 var Author = require('../models/author');
 const author = require('../models/author');
+const device = require('../models/device.js');
 
+var mqttClient = new mqttHandler();
+mqttClient.connect();
 
 router.post('/', function(req, res, next) {
     var deviceModel = new Device();
 
-    deviceModel.device_id = 'b82737eed6';
+
+    deviceModel.device_id = req.body.device_id;
     deviceModel.status = 1;
     deviceModel.device_time = Date.now();
     deviceModel.start_setting = 1;
@@ -44,14 +50,6 @@ router.delete('/:device_id',(req,res)=>
 });
 //장치 삭제
 
-router.get('/group',(req,res)=>
-{
-    Author.find({group_id:req.body.group},function(err,data)
-    {
-        res.json(data);
-    });
-});
-//장치 조회(그룹 전체)
 
 
 router.post('/author', function(req, res, next) {
@@ -77,5 +75,41 @@ router.post('/author', function(req, res, next) {
     });
 });
 //권한 부여
+
+router.put('/info/:device_id',(req,res)=>
+{
+    var deviceSetting=new Device();
+    deviceSetting=
+    {
+        device_name: req.body.device_name,
+        device_type: req.body.device_type,
+        start_setting: req.body.start_setting,
+        end_setting: req.body.end_setting
+    }
+    Device.findOneAndUpdate({device_id:req.body.device_id},{$set:deviceSetting},function(err,data)
+    {
+        res.send("Device info is added");
+    });
+});
+
+router.get('/run/:device_id',(req,res)=>
+{
+    mqttClient.publish(req.params.device_id,'khulock run motor', qos=2);
+    res.send("Send message to "+req.params.device_id);
+});
+
+router.get('/stop/:device_id',(req,res)=>
+{
+    mqttClient.publish(req.params.device_id,'khulock stop motor', qos=2);
+    res.send("Send message to "+req.params.device_id);
+});
+
+router.get('/:device_id',(req,res)=>
+{
+    Device.findOne({device_id:req.params.device_id},function(err,data)
+    {
+        res.json(data);
+    })
+});
 
 module.exports = router;

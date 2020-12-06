@@ -8,10 +8,9 @@ autoIncrement.initialize(connection);
 
 
 var deviceSchema = new Schema({
-    id: Number,
-    device_id: String,
-    status: Number,
-    device_time: Date,
+    id: String,
+    device_name: String,
+    type: String,
     start_setting: Number,
     end_setting: Number
 }, {
