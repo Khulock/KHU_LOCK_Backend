@@ -51,6 +51,28 @@ router.delete('/:group_id',(req,res)=>
     });
 });
 //그룹 삭제
+router.post('/device',(req,res)=>
+{
+    User.findOne({id:req.body.user_id},function(err,user)
+     {
+    var deviceList=new Array();
+    Author.find({group_id:user.group_id},function(err,data)
+    {
+      for(var i=0;i<data.length;i++)
+      {
+        deviceList.push(data[i].device_id);
+      }   
+    });
+    console.log(deviceList);
+    setTimeout(function(){
+    Device.find({device_id :{$in :deviceList}},function(err,info)
+    {
+      res.send(info);
+    });
+  },1000);
+    });
+});
+
 router.post('/:device_id',(req,res)=>
 {
     var author=new Author();
@@ -117,26 +139,6 @@ router.put('/user/:user_id',(req,res)=>
 }); 
 //그룹에 사용자 추가 , 삭제
 
-router.post('/device',(req,res)=>
-{
-    User.findOne({id:req.body.user_id},function(err,user)
-     {
-    var deviceList=new Array();
-    Author.find({group_id:user.group_id},function(err,data)
-    {
-      for(var i=0;i<data.length;i++)
-      {
-        deviceList.push(data[i].device_id);
-      }   
-    });
-    console.log(deviceList);
-    setTimeout(function(){
-    Device.find({device_id :{$in :deviceList}},function(err,info)
-    {
-      res.send(info);
-    });
-  },1000);
-    });
-});
+
 
 module.exports = router;
