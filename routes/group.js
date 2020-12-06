@@ -51,6 +51,16 @@ router.delete('/:group_id',(req,res)=>
     });
 });
 //그룹 삭제
+router.post('/:device_id',(req,res)=>
+{
+    var author=new Author();
+    author=
+        {   device_id:req.params.device_id,
+            group_id:req.body.group_id
+        }
+    author.save();
+    res.send(req.params.device_id+' is added');
+});//권한 추가
 
 router.get('/mygroup', function(req, res, next) {
   var token = req.headers['authorization'];
