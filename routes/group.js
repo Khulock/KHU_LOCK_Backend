@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 var User = require('../models/user.js');
 var Group = require('../models/group.js');
+var Author = require('../models/author');
 
 router.post('/', function(req, res, next) {
     const group_name = req.body.group_name;
