@@ -57,7 +57,7 @@ router.post('/:device_id',(req,res)=>
     author=
         {   device_id:req.params.device_id,
             group_id:req.body.group_id
-        }
+        };
     author.save();
     res.send(req.params.device_id+' is added');
 });//권한 추가
