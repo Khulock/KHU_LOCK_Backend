@@ -54,10 +54,9 @@ router.delete('/:group_id',(req,res)=>
 router.post('/:device_id',(req,res)=>
 {
     var author=new Author();
-    author={
-      device_id:req.params.device_id,
-      group_id:req.body.group_id
-    };
+    author.device_id = req.params.device_id;
+    author.group_id = req.body.group_id;
+    
     author.save();
     res.send(req.params.device_id+' is added');
 });//권한 추가
