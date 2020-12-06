@@ -11,7 +11,7 @@ autoIncrement.initialize(connection);
 
 
 var historySchema = new Schema({
-    id: Number,
+    history_id: Number,
     user_id: Number,
     access_time: {type: Date, default: dateKorea},
     check_enterout: Number
