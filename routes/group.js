@@ -119,8 +119,10 @@ router.put('/user/:user_id',(req,res)=>
 
 router.get('/device',(req,res)=>
 {
+    User.findOne({user_id:req.body.user_id},function(err,user)
+     {
     var deviceList=new Array();
-    Author.find({group_id:req.body.group},function(err,data)
+    Author.find({group_id:user.group_id},function(err,data)
     {
       for(var i=0;i<data.length;i++)
       {
@@ -134,6 +136,7 @@ router.get('/device',(req,res)=>
       res.send(info);
     });
   },1000);
+    });
 });
 
 module.exports = router;
