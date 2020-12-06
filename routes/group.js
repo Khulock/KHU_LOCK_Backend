@@ -119,12 +119,21 @@ router.put('/user/:user_id',(req,res)=>
 
 router.get('/device',(req,res)=>
 {
+    var deviceList=new Array();
     Author.find({group_id:req.body.group},function(err,data)
     {
-        res.json(data);
+      for(var i=0;i<data.length;i++)
+      {
+        deviceList.push(data[i].device_id);
+      }   
     });
+    console.log(deviceList);
+    setTimeout(function(){
+    Device.find({device_id :{$in :deviceList}},function(err,info)
+    {
+      res.send(info);
+    });
+  },1000);
 });
-//장치 조회(그룹 전체)
-
 
 module.exports = router;
