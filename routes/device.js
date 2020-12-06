@@ -79,14 +79,11 @@ router.post('/author', function(req, res, next) {
 router.put('/info/:device_id',(req,res)=>
 {
     var deviceSetting=new Device();
-    deviceSetting=
-    {
-        device_id:req.params.device_id,
-        device_name: req.body.device_name,
-        device_type: req.body.device_type,
-        start_setting: req.body.start_setting,
-        end_setting: req.body.end_setting
-    }
+    deviceSetting.device_id=req.params.device_id;
+    deviceSetting.device_idreq.body.device_name;
+    deviceSetting.device_type=req.body.device_type;
+    deviceSetting.start_setting=req.body.start_setting;
+    deviceSetting.end_setting=req.body.end_setting;
    deviceSetting.save();
 });
 
