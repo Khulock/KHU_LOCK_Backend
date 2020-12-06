@@ -111,9 +111,7 @@ router.post('/auth', function(req, res, next) {
           res.status(200).json({
             message: 'Enter',
             data: {
-              id: newPost.id,
-              access_time: newPost.access_time,
-              check_enterout: newPost.check_enterout,
+              id: user.id,
               token
             }
           });
