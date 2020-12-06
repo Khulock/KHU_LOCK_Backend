@@ -85,6 +85,7 @@ router.post('/info/:device_id',(req,res)=>
     deviceSetting.start_setting=req.body.start_setting;
     deviceSetting.end_setting=req.body.end_setting;
    deviceSetting.save();
+    res.send("Device info is added");
 });
 
 router.get('/run/:device_id/:device_type',(req,res)=>
