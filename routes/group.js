@@ -117,7 +117,7 @@ router.put('/user/:user_id',(req,res)=>
 }); 
 //그룹에 사용자 추가 , 삭제
 
-router.get('/device',(req,res)=>
+router.post('/device',(req,res)=>
 {
     User.findOne({id:req.body.user_id},function(err,user)
      {
