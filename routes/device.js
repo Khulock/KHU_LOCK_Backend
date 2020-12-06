@@ -112,7 +112,12 @@ router.post('/run/:device_id/:device_type',(req,res)=>
 
 router.get('/stop/:device_id/:device_type',(req,res)=>
 {
-    mqttClient.sendMessage(req.params.device_id, 'khulockstop '+req.params.device_type)
+    var msg = {
+        type: req.params.device_type,
+        setting: 0
+    };
+    var data = JSON.stringify(msg)
+    mqttClient.sendMessage(req.params.device_id, data)
     res.send("Send message to "+req.params.device_id);
 });
 
