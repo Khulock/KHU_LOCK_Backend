@@ -93,15 +93,21 @@ router.put('/info/:device_id',(req,res)=>
 });
 
 router.get('/run/:device_id',(req,res)=>
-{
-    mqttClient.publish(req.params.device_id,'khulock run motor', qos=2);
-    res.send("Send message to "+req.params.device_id);
+{   
+    Device.findOne({device_id:req.params.device_id},function(err,data)
+    {
+        mqttClient.publish(req.params.device_id,'khulock run '+data.device_type, qos=2);
+            res.send("Send message to "+req.params.device_id);
+    }
 });
 
 router.get('/stop/:device_id',(req,res)=>
 {
-    mqttClient.publish(req.params.device_id,'khulock stop motor', qos=2);
-    res.send("Send message to "+req.params.device_id);
+    Device.findOne({device_id:req.params.device_id},function(err,data)
+    {
+        mqttClient.publish(req.params.device_id,'khulock stop '+data.device_type, qos=2);
+        res.send("Send message to "+req.params.device_id);
+    }
 });
 
 router.get('/:device_id',(req,res)=>
