@@ -81,15 +81,13 @@ router.put('/info/:device_id',(req,res)=>
     var deviceSetting=new Device();
     deviceSetting=
     {
+        device_id:req.params.device_id,
         device_name: req.body.device_name,
         device_type: req.body.device_type,
         start_setting: req.body.start_setting,
         end_setting: req.body.end_setting
     }
-    Device.findOneAndUpdate({device_id:req.body.device_id},{$set:deviceSetting},function(err,data)
-    {
-        res.send("Device info is added");
-    });
+   deviceSetting.save();
 });
 
 router.get('/run/:device_id/:device_type',(req,res)=>
