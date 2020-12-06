@@ -10,9 +10,9 @@ autoIncrement.initialize(connection);
 
 
 var userSchema = new Schema({
-    id: Number,
+    user_id: Number,
     group_id: Number,
-    name: String,
+    user_name: String,
     author_status: Boolean
 },{
     versionKey: false
